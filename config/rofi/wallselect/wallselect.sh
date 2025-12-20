@@ -92,6 +92,9 @@ case "$main_choice" in
         # Sets wallpaper only
         set_wallpaper        
         ;;
+    *)
+    exit 0
+        ;;
 esac
 
 # Copy the selected wallpaper other directories
