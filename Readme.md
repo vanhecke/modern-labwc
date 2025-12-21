@@ -1,50 +1,20 @@
 # Complete Labwc Setup
 
-A ready to use configuration for **Labwc** wayland compositor with 21 preconfigured color schemes and dynamic wallpaper-based color generation.
-
----
-
-## 📦 Dependencies
-
-**For Arch Linux**: Run `setup.sh` to automatically install all dependencies.
-
-**For Other Distributions**: Install these packages manually:
-
-```
-imagemagick labwc wl-clipboard cliphist wl-clip-persist waybar rofi 
-ffmpegthumbnailer ffmpeg dunst matugen foot swww swayidle hyprlock 
-qt5-wayland qt6-wayland nm-connection-editor polkit-gnome gnome-keyring
-otf-font-awesome inter-font ttf-roboto papirus-icon-theme adw-gtk-theme
-```
-
-Then copy the config files according to the directory structure below.
+A ready to use configuration for **Labwc** wayland compositor with 20 preconfigured color schemes + dynamic wallpaper-based color generation using matugen.
 
 ---
 
 ## ✨ Features
 
-- **21 Preconfigured Themes** -  21 preconfigured color schemes 
+- **Preconfigured Themes** -  preconfigured color schemes for labwc, GTK3, GTK4, Rofi and waybar.
 - **Wallpaper-Based Color Generation** - Generate themes from wallpapers using Matugen
-- **System-Wide Theming** - Unified colors across all applications
 - **Rofi Applets** - Utility applets (wallpaper picker, WiFi, now playing, etc.)
-
-### Applications Configured
-- **Terminal Emulators**: Alacritty, Kitty, Foot
-- **UI Frameworks**: GTK3, GTK4, Qt5, Qt6
-- **Launcher**: Rofi with applets and menu layou
-- **Status Bar**: Waybar with custom scripts
-- **Notifications**: Dunst
-- **System Monitor**: Btop
-- **Media Player**: MPV
-- **Lock Screen**: Hyprlock
 
 ---
 
-## 🎨 Preconfigured Themes (21 Total)
+## 🎨 Preconfigured Themes (20 Total)
 
-Tokyo Night, Onedark, Dracula, Catppuccin, Gruvbox, Nord, Everforest, Everforest Light, Solarized Dark, Solarized, Lavender Pastel, Arc, Adapta, Black, Navy, Lovelace, Paper, Cyberpunk, Yousai, and Wallpaper-based theme.
-
-All themes are configured for GTK 3.0, GTK 4.0, Rofi and Waybar.
+Tokyo Night, Onedark, Dracula, Catppuccin, Gruvbox, Nord, Everforest, Everforest Light, Solarized Dark, Solarized, Lavender Pastel, Arc, Adapta, Black, Navy, Lovelace, Paper, Cyberpunk, Yousai, and Wallpaper-based.
 
 ---
 ## Rofi Applets
@@ -54,7 +24,9 @@ All themes are configured for GTK 3.0, GTK 4.0, Rofi and Waybar.
   <details>
   <summary><b><code>Click to previes</code></b></summary>
   
-  ![wallselect](https://github.com/user-attachments/assets/16c61848-88e1-49f6-bad9-cf69a048f0bc)
+  | | |
+  |-|-|
+  |![wallselect](https://github.com/user-attachments/assets/16c61848-88e1-49f6-bad9-cf69a048f0bc)|![wallselect](https://github.com/user-attachments/assets/99052231-6865-4e05-b5cd-bc62d01ef06a)|
 
 </details>
   
@@ -139,9 +111,22 @@ All themes are configured for GTK 3.0, GTK 4.0, Rofi and Waybar.
 
 </details>
 
-## Waybar
+## Rofi Powermenu
+<details>
+<summary><b><code>Click to previes</code></summary>
 
-- **Nightlight** - Quick access to blue light filter controls
+![powermenu1](https://github.com/user-attachments/assets/63ef714b-339a-4f24-910f-39063ca9901d)
+![powermenu2](https://github.com/user-attachments/assets/34ac5343-d1e8-4dda-bdde-02d18860ed31)
+![powermenu3](https://github.com/user-attachments/assets/8d234137-a551-4b79-af26-25aa4ab5994f)
+![powermenu4](https://github.com/user-attachments/assets/e208c391-66ae-493b-a4b4-00c7b833b0ab)
+![powermenu5](https://github.com/user-attachments/assets/6fa0ef70-9857-47ef-adc7-459a801e5bfb)
+![powermenu6](https://github.com/user-attachments/assets/81155fec-a7a5-4e71-b697-39b0a3f4df45)
+![powermenu7](https://github.com/user-attachments/assets/e47197f3-04be-43bd-afeb-6eeba9570435)
+![powermenu8](https://github.com/user-attachments/assets/36122913-484f-4e04-bad0-1a1a7c7dd98a)
+
+</details>
+
+## Waybar
 
 <details>
 <summary><b><code>Click to previes</code></b></summary>
@@ -150,87 +135,63 @@ All themes are configured for GTK 3.0, GTK 4.0, Rofi and Waybar.
 
 </details>
 
-## 📂 Directory Structure
-
-```
-config/
-├── alacritty/           # Alacritty terminal configuration
-├── btop/                # System monitor config & themes
-├── dunst/               # Notification daemon
-├── foot/                # Foot terminal emulator
-├── gtk-3.0/             # GTK 3 theme & CSS with 23+ color schemes
-├── gtk-4.0/             # GTK 4 theme & CSS with 23+ color schemes
-├── hypr/                # Hyprland lock screen config
-├── kitty/               # Kitty terminal emulator
-├── labwc/               # Labwc compositor main configuration
-│   ├── rc.xml           # Main keybinds & behavior
-│   ├── menu.xml         # Application menu
-│   ├── autostart         # Startup scripts
-│   └── idle/            # Power management scripts
-├── matugen/             # Color generation engine
-│   ├── config.toml      # Matugen configuration
-│   └── templates/       # Template files for all applications
-├── mpv/                 # Media player configuration
-├── qt5ct/               # Qt 5 theme configuration
-├── qt6ct/               # Qt 6 theme configuration
-├── rofi/                # Application launcher with multiple themes
-└── waybar/              # Status bar configuration
-
-matugen-labwc/          # Pre-generated matugen output
-└── labwc/
-```
-
 ---
 
-## 🚀 Installation
+## Installation
 
 **Arch Linux Users:**
 ```bash
-git clone <repository-url>
+git clone https://github.com/Harsh-bin/labwc-setup
 cd labwc-setup
 chmod +x setup.sh
 ./setup.sh
 ```
-
 **Other Distributions:**
-1. Install dependencies manually (see above)
+1. Install dependencies manually 
 2. Copy config files to `~/.config/` matching the directory structure
 3. Copy fonts if needed to `~/.local/share/`
-4. Set environment variables as needed for wayland
+4. Copy `matugen-labwc` theme folder to `~/.themes`
 
 ---
 
-## ⚙️ Quick Start
+## Dependencies
 
-1. **Select a theme**: Edit `config/gtk-3.0/settings.ini` and `config/gtk-4.0/settings.ini` to choose a color scheme
-2. **Generate from wallpaper**: Run `matugen image-analysis -i your-wallpaper.jpg` for automatic theming
-3. **Customize keybinds**: Edit `config/labwc/rc.xml` for keyboard shortcuts
-4. **Use applets**: Access rofi applets through your configured launcher hotkey
+**For Arch Linux**: Run `setup.sh` to automatically install all dependencies.
+
+**For Other Distributions**: Install these packages manually:
+
+
+- `labwc`
+- `waybar`
+- `rofi`
+- `matugen`
+- `adw-gtk-theme`
+- `dunst`
+- `swww`
+- `polkit-gnome`
+- `gnome-keyring`
+- `wl-clipboard`
+- `cliphist`
+- `wl-clip-persist`
+- `swayidle`
+- `hyprlock`
+- `foot`
+- `imagemagick`
+- `ffmpegthumbnailer`
+- `ffmpeg`
+- `otf-font-awesome`
+- `inter-font`
+- `ttf-roboto`
+- `papirus-icon-theme`
+- `qt5-wayland`
+- `qt6-wayland`
+- `nm-connection-editor`
+- `gammastep`
+- `wf-recorder`
+- `grim`
+- `slurp`
+- `playerctl`
 
 ---
 
-## 🎯 Use Cases
-
-- **Minimal Wayland Desktop** - Lightweight and fast
-- **Theme Customization** - 21 themes + wallpaper-based generation
-- **Developer-Friendly** - Fully modular and customizable configs
-- **Multi-Monitor** - Full Wayland multi-monitor support
-
----
-
-## 📝 Notes
-
-- **Arch Linux Focus**: `setup.sh` is optimized for Arch Linux; adapt package names for other distributions
-- **Wayland Required** - All components are Wayland-native
-- **Modular** - Use only the configurations you need
-- **Customizable** - Every config is editable to suit your workflow
-
----
-
-## 📜 License
-
-Include your license information here.
-
----
-
-**Enjoy your beautifully themed Labwc desktop!** 🚀
+**Enjoy your beautifully themed Labwc desktop!** 
