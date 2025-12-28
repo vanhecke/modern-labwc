@@ -5,7 +5,7 @@
 #####################################
 
 # Change path to wallpaper
-wall_dir="/home/init_harsh/Templates/wallpapers/"
+wall_dir="/usr/share/backgrounds/images/"
 
 # Directories to copy wallpaper
 rofi_img="$HOME/.config/rofi/images/"
@@ -57,7 +57,7 @@ set_wallpaper() {
     swww img --transition-type random --transition-duration 3 --transition-fps 60 --transition-bezier 0.99,0.99,0.99,0.99 "$selected" &
 }
 
-# Change color scheme to wallpaper function
+# Function to change color scheme to wallpaper
 change_color_scheme_to_wallpaper() {
           # Apply only wallpaper color scheme
         sed -i "3s|.*|@import \"~/.config/rofi/colors/wallpaper.rasi\"|" "$rofi_colors"
@@ -87,7 +87,7 @@ case "$main_choice" in
                 change_color_scheme_to_wallpaper
                 # Applies wallpaper
                 set_wallpaper
-                # Sets light theme for gtk apps
+                # Sets light System theme
                 sed -i 's/gtk-application-prefer-dark-theme=1/gtk-application-prefer-dark-theme=0/' "$GTK3_SETTINGS_FILE"
                 sed -i 's/gtk-application-prefer-dark-theme=true/gtk-application-prefer-dark-theme=false/' "$GTK4_SETTINGS_FILE"
                 sed -i '3c gtk-icon-theme-name=Papirus-Light' "$GTK3_SETTINGS_FILE"
@@ -102,13 +102,16 @@ case "$main_choice" in
                 change_color_scheme_to_wallpaper
                 # Applies wallpaper 
                 set_wallpaper
-                # Sets dark theme for gtk apps
+                # Sets dark System theme
                 sed -i 's/gtk-application-prefer-dark-theme=0/gtk-application-prefer-dark-theme=1/' "$GTK3_SETTINGS_FILE"
                 sed -i 's/gtk-application-prefer-dark-theme=false/gtk-application-prefer-dark-theme=true/' "$GTK4_SETTINGS_FILE"
                 sed -i '3c gtk-icon-theme-name=Papirus-Dark' "$GTK3_SETTINGS_FILE"
                 echo "Switched to dark theme."
                 "$GTK_THEME_SWITCHER"
                  ;;
+               *)
+                exit 0
+                ;;
         esac
         ;;
 
@@ -121,7 +124,7 @@ case "$main_choice" in
         ;;
 esac
 
-# Copy the selected wallpaper other directories
+# Copy the selected wallpaper to other directories
 # Rofi doesn't care about file extension 
 cp "$selected" "$rofi_img/wallpaper.png"
 
@@ -135,12 +138,26 @@ if [ ${extension} = ".gif" ]; then
 else
     sed -i "6s|.*|    path = ~/.config/hypr/hyprlock/wallpaper${extension}|" "$hyprlock_conf"    
 fi
-# stores the current background path in cache file, will be used with `toggle-theme.sh` as toggling theme generates template for hyprlock
-# which uses `path = ~/.config/hypr/hyprlock/background.png` by default so 'wallpaper.extension' will not be used
-sed -n '6p' "$hyprlock_conf" > "$hyprlock_dir/background.cache"
+# Stores the current used wallpaper 
+used_wall=$(sed -n '6p' "$hyprlock_conf")
 
 new_wallpaper_file="${wall_cache}/wallpaper${extension}"
 find "$wall_cache" -maxdepth 1 -type f -name 'wallpaper.*' -delete
 find "$hyprlock_dir" -maxdepth 1 -type f -name 'wallpaper.*' -delete
 cp "$selected" "$new_wallpaper_file"
 cp "$new_wallpaper_file" "$hyprlock_dir"
+
+# Hyprlock specific color generation
+hyprlock_background=$(sed -n '6s/.*= //p' "$hyprlock_conf" | sed "s,~,$HOME,")
+wall_brightness=$(magick "$hyprlock_background" -colorspace Gray -format "%[fx:100*mean]" info: | tr -d ',')
+
+# Compare the brightness of wallpaper and then generates hyprlock color accordingly
+# This is intensional and also correct
+if (( $(echo "$wall_brightness > 50" | bc -l) )); then
+    matugen -c "$HOME/.config/matugen/hyprlock.toml" image "$hyprlock_background" -m "light"
+else    
+    matugen -c "$HOME/.config/matugen/hyprlock.toml" image "$hyprlock_background" -m "dark"
+fi
+# Restores the wallpaper after generating matugen colors
+sed -i "6s|.*|$used_wall|" "$hyprlock_conf"
+exit 0

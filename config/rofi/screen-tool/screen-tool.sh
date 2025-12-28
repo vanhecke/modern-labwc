@@ -79,11 +79,10 @@ case "$main_choice" in
         filename="$vid_dir/Recording_$(date +%Y%m%d-%H%M%S).mp4"
         region=$(slurp)
         if [ -n "$region" ]; then            
-            wf-recorder -g "$region" -c libx264 -p preset=ultrafast -p crf=23 -p tune=zerolatency --pixel-format yuv420p -f "$filename" &>/dev/null &
+            wf-recorder -g "$region" -r 60 -f "$filename" &>/dev/null &
             # Saves the recording name to a tmp file
             echo "$filename" > "/tmp/recording.name"
             notify-send -t 1500 "Screen Record" "Recording Started..."
-            #wf-recorder -g "$region" -r 60 -f "$filename"
         else
             notify-send "Screen-recording Cancelled..."
         fi

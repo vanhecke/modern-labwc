@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <labwc_config>
     <core>
         <decoration>server</decoration>
@@ -12,26 +11,22 @@
         <xwaylandPersistence>no</xwaylandPersistence>
         <primarySelection>yes</primarySelection>
     </core>
-
-
     <placement>
         <policy>cascade</policy>
         <!--"automatic" <cascadeOffset x="40" y="30" /> -->
     </placement>
     <dropShadows>no</dropShadows>
     <dropShadowsOnTiled>no</dropShadowsOnTiled>
-    
-
     <theme>
         <name>matugen-labwc</name>
-        <font name="Roboto" size="10"/>
+        <font name="Roboto" size="10" />
         <cornerRadius>0</cornerRadius>
     </theme>
 
-<!-- Key bindings -->
 
+    <!-- Key bindings -->
     <keyboard>
-        <default/>
+        <default />
         <keybind key="W-Return">
             <action name="Execute" command="foot" />
         </keybind>
@@ -40,17 +35,62 @@
         </keybind>
         <keybind key="W-s">
             <action name="Execute" command="sh -c '~/.config/rofi/screen-tool/screen-tool.sh'" />
-            </keybind>       
+        </keybind>
         <keybind key="W-l">
             <action name="Execute" command="loginctl lock-session" />
-            </keybind>
+        </keybind>
         <keybind key="W-c">
             <action name="Reconfigure" />
         </keybind>
+        <keybind key="A-Tab">
+            <action name="NextWindow" />
+        </keybind>
+        <keybind key="A-S-Tab">
+            <action name="PreviousWindow" />
+        </keybind>
+        <!-- Switch between workspaces -->
+        <keybind key="W-1">
+            <action name="GoToDesktop" to="1" />
+        </keybind>
+        <keybind key="W-2">
+            <action name="GoToDesktop" to="2" />
+        </keybind>
+        <keybind key="W-3">
+            <action name="GoToDesktop" to="3" />
+        </keybind>
+        <keybind key="W-4">
+            <action name="GoToDesktop" to="4" />
+        </keybind>
+        <!-- Move active window to workspace -->
+        <keybind key="W-S-1">
+            <action name="SendToDesktop" to="1" />
+        </keybind>
+        <keybind key="W-S-2">
+            <action name="SendToDesktop" to="2" />
+        </keybind>
+        <keybind key="W-S-3">
+            <action name="SendToDesktop" to="3" />
+        </keybind>
+        <keybind key="W-S-4">
+            <action name="SendToDesktop" to="4" />
+        </keybind>
+        <!-- Snap windows to halves/corners -->
+        <keybind key="W-Left">
+            <action name="SnapToEdge" direction="left" />
+        </keybind>
+        <keybind key="W-Right">
+            <action name="SnapToEdge" direction="right" />
+        </keybind>
+        <keybind key="W-Up">
+            <action name="SnapToEdge" direction="up" />
+        </keybind>
+        <keybind key="W-Down">
+            <action name="SnapToEdge" direction="down" />
+        </keybind>
     </keyboard>
-   
-<!-- mouse binding -->
 
+
+    <!-- mouse binding -->
     <mouse>
         <default />
         <!-- Show apps menu on desktop right click -->
@@ -63,8 +103,7 @@
             </mousebind>
         </context>
     </mouse>
-
-<!-- workspace settings -->
+    <!-- workspace settings -->
     <desktops number="4" />
     <desktops>
         <popupTime>1000</popupTime>
@@ -76,10 +115,36 @@
         </names>
     </desktops>
 
-<!--windows rule -->
 
+    <libinput>
+        <!-- TOUCHPAD: laptop trackpads -->
+        <device category="touchpad">
+            <pointerSpeed>0.3</pointerSpeed> <!-- -1.0(slowest) to 1.0(fastest) -->
+            <accelProfile>adaptive</accelProfile> <!-- adaptive, flat -->
+            <naturalScroll>no</naturalScroll>
+            <scrollFactor>0.3</scrollFactor>
+            <scrollMethod>twoFinger</scrollMethod> <!-- twoFinger, edge -->
+            <tap>yes</tap>
+            <tapButtonMap>lrm</tapButtonMap>
+            <tapAndDrag>yes</tapAndDrag>
+            <dragLock>no</dragLock>
+            <disableWhileTyping>yes</disableWhileTyping>
+            <clickMethod>buttonAreas</clickMethod> <!-- buttonAreas, clickfinger, none -->
+        </device>
+        <!-- NON-TOUCH: physical/external mice -->
+        <device category="non-touch">
+            <pointerSpeed>1.0</pointerSpeed>
+            <accelProfile>adaptive</accelProfile>
+            <naturalScroll>no</naturalScroll>
+            <scrollFactor>1.0</scrollFactor>
+            <leftHanded>no</leftHanded>
+        </device>
+    </libinput>
+
+
+    <!--windows rule -->
     <windowRules>
-       <windowRule title="Attention">
+        <windowRule title="Attention">
             <action name="ToggleAlwaysOnTop" />
         </windowRule>
     </windowRules>

@@ -70,7 +70,7 @@ bar_position() {
         # Killall Waybar
         killall waybar >/dev/null &
         sleep 0.2   
-        # Changes directory to home as opening filemanage eg thunar will open ~/.config/waybar/scripts as home directory.
+        # Changes directory to home as opening filemanager eg thunar will open ~/.config/waybar/scripts as home directory.
         cd "$HOME"
         waybar --log-level off &>/dev/null &
         notify-send "Waybar Position Changed to $selected_position"

@@ -8,9 +8,7 @@ GTK3_SETTINGS_FILE="$HOME/.config/gtk-3.0/settings.ini"
 GTK4_SETTINGS_FILE="$HOME/.config/gtk-4.0/settings.ini"
 wall_dir="$HOME/.config/labwc/wallpaper"
 waybar_css="$HOME/.config/waybar/style.css"
-# Hyprlock 
-hyprlock_conf="$HOME/.config/hypr/hyprlock.conf"
-hyprlock_bg="$HOME/.config/hypr/hyprlock/background.cache"
+
 # labwc theme
 labwc_theme_file="$HOME/.config/labwc/themerc-override"
 labwc_theme_dir="$HOME/.config/labwc/colors"
@@ -31,7 +29,6 @@ if grep -q "gtk-application-prefer-dark-theme=1" "$GTK3_SETTINGS_FILE"; then
     matugen image "$wall_cache" -m "light"
     sleep 0.2
     sed -i "4s|.*|/** just to triggre css refresh **/|" "$waybar_css"
-    sed -i "6s|.*|$(cat $hyprlock_bg)|" "$hyprlock_conf"
     if [ -f "$GTK4_SETTINGS_FILE" ]; then
         sed -i 's/gtk-application-prefer-dark-theme=true/gtk-application-prefer-dark-theme=false/' "$GTK4_SETTINGS_FILE"
     fi
@@ -44,7 +41,6 @@ else
     matugen image "$wall_cache" -m "dark"
     sleep 0.2
     sed -i "4s|.*|/** just to triggre css refresh **/|" "$waybar_css"
-    sed -i "6s|.*|$(cat $hyprlock_bg)|" "$hyprlock_conf"
     if [ -f "$GTK4_SETTINGS_FILE" ]; then
         sed -i 's/gtk-application-prefer-dark-theme=false/gtk-application-prefer-dark-theme=true/' "$GTK4_SETTINGS_FILE"
     fi
@@ -52,9 +48,14 @@ else
     "$GTK_THEME_SWITCHER"
 fi
 
-# Check if labwc is using "matugen" theme, then copies the generated wallpaper color to labwc-override file. 
+# We identify matugen theme by searching "General" as only matugen theme contain word "General".
 if grep -q "General" "$labwc_theme_file"; then
     cp "$labwc_theme_dir/wallpaper.color" "$labwc_theme_file"
     # Reloads labwc
     labwc --reconfigure    
 fi
+
+
+
+
+

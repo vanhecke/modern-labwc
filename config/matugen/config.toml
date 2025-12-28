@@ -30,10 +30,6 @@ input_path = '~/.config/matugen/templates/dunstrc-colors.txt'
 output_path = '~/.config/dunst/dunstrc'
 post_hook = 'dunstctl reload'
 
-[templates.hyprlock]
-input_path = '~/.config/matugen/templates/hyprlock.conf'
-output_path = '~/.config/hypr/hyprlock.conf'
-
 [templates.alacritty]
 input_path = '~/.config/matugen/templates/alacritty.toml'
 output_path = '~/.config/alacritty/alacritty.toml'
@@ -49,3 +45,7 @@ output_path = '~/.config/kitty/colors.conf'
 [templates.btop]
 input_path = '~/.config/matugen/templates/btop.theme'
 output_path = '~/.config/btop/themes/matugen.theme'
+
+[templates.mpv]
+input_path = '~/.config/matugen/templates/modernz.conf'
+output_path = '~/.config/mpv/script-opts/modernz.conf'

@@ -238,8 +238,8 @@ echo -e "${yellow}Starting Background Services...${nc}"
 sleep 0.5   
 echo "-------------------------------------------------"
 echo -e "${red} killing existing instances of swww-daemon, dunst and waybar...${nc}"
-# Run swww-daemon, dunst and waybar
 killall -q -w swww-daemon dunst waybar
+# Run swww-daemon, dunst and waybar
 sleep 0.5
 echo -e "${yellow}Initializing swww-daemon, notification and waybar...${nc}"
 sleep 0.5

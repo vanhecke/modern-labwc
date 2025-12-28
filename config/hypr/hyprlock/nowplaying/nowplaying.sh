@@ -5,8 +5,8 @@
 #####################################
 
 # --- Configuration ---
-art_file="$HOME/.config/hypr/hyprlock/nowplaying/album_art.jpg"
-fallback_art_file="$HOME/.config/hypr/hyprlock/nowplaying/fallback_album_art.jpg"
+art_file="$HOME/.config/hypr/hyprlock/nowplaying/album_art.png"
+fallback_art_file="$HOME/.config/hypr/hyprlock/nowplaying/fallback_album_art.png"
 cache_file="$HOME/.config/hypr/hyprlock/nowplaying/song_title.cache"
 
 # --- Functions ---
@@ -106,13 +106,13 @@ if [[ -n "$active_player" ]]; then
             # Case 2: Standard URL (file://) for browsers   
             raw_path="${album_art_url#file://}"
             decoded_path="$(url_decode "$raw_path")"          
-            cp "$decoded_path" "$art_file"
-            # converts the art file to `.jpg` extension as they all are `.png's` i think so... hyprlock needs true file extension to show image.    
-            magick "$art_file" "$art_file"
+            cp "$decoded_path" "$art_file"            
         elif [[ "$album_art_url" =~ ^https:// ]]; then
             # Case 3: Web URL
             curl -s "$album_art_url" --output "$art_file"
         fi
+	# Ensures art file is in PNG format for hyprlock compatibility
+	magick "$art_file" "$art_file"
     fi
 fi
 
@@ -127,5 +127,7 @@ fi
 # Added truncate function for song title
 short_title=$(echo "$song_title" | sed -E "s/^(.{60}).+/\1.../")
 # Print Output 
-echo -e "<span font_weight='light' size='small'>${player_display_name} <small>${player_status}</small></span>\n<b>${short_title}</b>    <span style='italic'>${song_artist}</span>"
+echo -e "<span font_weight='light' size='small'>${player_display_name} <small>${player_status}</small></span>\n<b>${short_title}</b>\n<span size='small' style='italic'>${song_artist}</span>"
+
+
 
