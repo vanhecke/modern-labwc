@@ -1,6 +1,6 @@
 # --- Input & Region ---
 XKB_DEFAULT_LAYOUT=us
-LANG=en_IN.UTF-8
+LANG=en_US.UTF-8
 
 # --- Cursor ---
 XCURSOR_THEME=Bibata-Modern-Ice
