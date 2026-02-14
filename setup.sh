@@ -60,7 +60,7 @@ dependencies=(
     "thunar"
     "pavucontrol"
     "brightnessctl"
-    "zeditor"
+    "zed"
     "spotify"
     # Apps (display & media)
     "mpv"
@@ -89,7 +89,6 @@ dependencies=(
 # --- Dependency Checker Function ---
 check_dependencies() {    
     echo -e "${blue}[DEPENDENCY CHECK]${nc} Checking installed packages..."
-    sleep 0.5
     install_cmd="paru -S --noconfirm --needed"
     check_cmd="pacman -Qi"
 
@@ -103,19 +102,15 @@ check_dependencies() {
     # If everything is installed, return
     if [ ${#missing_pkg[@]} -eq 0 ]; then
         echo -e "${green}All dependencies are already installed!${nc}"
-        sleep 0.5
         return
     fi
     # Install missing packages
     echo -e "${yellow}The following packages are missing:${nc}"
     for pkg in "${missing_pkg[@]}"; do
         echo -e " - $pkg"
-        sleep 0.1
     done
     echo ""
-    sleep 0.5
     echo -e "${blue}Starting installation...${nc}"
-    sleep 0.5    
     # loop through them one by one
     for pkg in "${missing_pkg[@]}"; do
         echo -e "Installing ${yellow}$pkg${nc}..."
@@ -124,11 +119,9 @@ check_dependencies() {
         else
             echo -e "${red}Failed to install $pkg (Check your repos).${nc}"
         fi
-        sleep 0.5
-    done    
+    done
     echo -e "${green}Dependency check finished.${nc}"
     echo "-------------------------------------------------"
-    sleep 0.5
 }
 
 ########################################
@@ -140,7 +133,6 @@ check_dependencies
 if [ "$UPDATE_MODE" = false ]; then
 # --- Backup Section ---
 echo -e "${yellow}Checking existing configurations...${nc}"
-sleep 0.5
 # Check if we actually need to backup anything
 dirs_to_backup=()
 for folder_path in "$source"/*; do
@@ -151,67 +143,53 @@ for folder_path in "$source"/*; do
 done
 if [ ${#dirs_to_backup[@]} -gt 0 ]; then
     echo -e "${blue}Existing configurations found. Creating backup...${nc}"
-    sleep 0.5
     echo -e "Backup location: ${yellow}$backup_dir${nc}"
     mkdir -p "$backup_dir"
-    sleep 0.5
     for folder_name in "${dirs_to_backup[@]}"; do
         echo -e "Backing up ${yellow}$folder_name${nc}..."
         mv "$dest/$folder_name" "$backup_dir/"
-        sleep 0.5
     done
     echo -e "${green}Backup complete.${nc}"
 else
     echo -e "${green}No existing configurations to backup.${nc}"
 fi
 echo "-------------------------------------------------"
-sleep 0.5
 fi
 
 # --- Config Copy Section ---
 echo -e "${yellow}Preparing to copy configurations...${nc}"
-sleep 0.5
 # Make .sh files executable inside source before copying
 echo -e "${yellow}Making .sh files executable...${nc}"
 find "$source" -name "*.sh" -type f -exec chmod +x {} +
-sleep 0.5
 echo -e "${yellow}Copying config files to $dest...${nc}"
 cp -r "$source"/* "$dest/"
-sleep 0.5
 echo -e "${green}Configs copied successfully.${nc}"
 echo "-------------------------------------------------"
-sleep 0.5
 
 if [ "$UPDATE_MODE" = false ]; then
 # --- Font Installation Section ---
 mkdir -p "$font_dest"
 echo -e "Extracting fonts to ${yellow}$font_dest${nc}..."
 tar -xJf "$font_source" -C "$font_dest"
-sleep 0.5
 echo -e "${blue}Updating font cache (this may take a moment)...${nc}"
 fc-cache -fv > /dev/null 2>&1
 echo -e "${green}Fonts installed and cache updated.${nc}"
 echo "-------------------------------------------------"
-sleep 0.5
 fi
 
 # --- Theme Installation Section ---
 mkdir -p "$theme_dest"    
 echo -e "Copying labwc-theme to ${yellow}$theme_dest${nc}..."
 cp -r "$theme_source" "$theme_dest/"
-sleep 0.5    
 echo -e "${green}Themes copied successfully.${nc}"
 echo "-------------------------------------------------"
-sleep 0.5
 
 # --- Add user to groups 
 echo -e "${red}Adding user to groups...${nc}"
-sleep 0.5
 user=$(whoami)
 # Add to input group 
 sudo usermod -aG input "$user"
 echo -e "${green}Successfully added $user to 'input' group.${nc}"
-sleep 0.5
 # Add to seat group
 sudo usermod -aG seat "$user"
 echo -e "${green}Successfully added $user to 'seat' group.${nc}"
@@ -221,11 +199,9 @@ echo -e "${yellow}Creating XDG user directories...${nc}"
 xdg-user-dirs-update
 echo -e "${green}XDG user directories created.${nc}"
 echo "-------------------------------------------------"
-sleep 0.5
 
 # --- Greeter (greetd + tuigreet) Setup ---
 echo -e "${yellow}Setting up login manager (greetd + tuigreet)...${nc}"
-sleep 0.5
 # Install greetd config
 if [ -f "./config/greetd/config.toml" ]; then
     sudo mkdir -p /etc/greetd
@@ -251,7 +227,6 @@ fi
 sudo systemctl enable greetd
 echo -e "${green}greetd enabled. It will start on next boot.${nc}"
 echo "-------------------------------------------------"
-sleep 0.5
 
 if [ "$UPDATE_MODE" = true ]; then
     # Regenerate desktop menu based on installed apps
@@ -279,7 +254,6 @@ fi
 #########################################
 
 echo -e "${blue}[POST-INSTALLATION SETUP]${nc}"
-sleep 1
 
 # Wallpaper Path Input
 echo "-------------------------------------------------"
@@ -313,13 +287,11 @@ if [[ -f "$wall_script" ]]; then
 else
     echo -e "${red}Error: $wall_script not found! Cannot update path.${nc}"
 fi
-sleep 1
 
 # Apply adw-gtk-theme
 echo "-------------------------------------------------"
 echo -e "${yellow}Applying adw-gtk-theme...${nc}"
 bash "$HOME/.config/labwc/gtk.sh"
-sleep 1
 
 # Generate Desktop Menu
 generate_menu() {
@@ -333,29 +305,22 @@ echo -e "${green}Desktop menu generated.${nc}"
 background_services() {
 echo "-------------------------------------------------"
 echo -e "${yellow}Starting Background Services...${nc}"
-sleep 0.5   
 echo "-------------------------------------------------"
 echo -e "${red} killing existing instances of swww-daemon, dunst and waybar...${nc}"
 killall -q -w swww-daemon dunst waybar
 # Run swww-daemon, dunst and waybar
-sleep 0.5
 echo -e "${yellow}Initializing swww-daemon, notification and waybar...${nc}"
-sleep 0.5
 swww-daemon > /dev/null 2>&1 &
 echo -e "Started ${green}swww-daemon${nc}"
-sleep 0.5
 dunst > /dev/null 2>&1 &
 echo -e "Started ${green}dunst${nc}"
-sleep 0.5
 waybar > /dev/null 2>&1 &
 echo -e "Started ${green}waybar${nc}"
-sleep 1
 
 # Device plugged audio
 echo "-------------------------------------------------"
 echo -e "${yellow}Starting Device Monitor in background...${nc}"
 bash ~/.config/labwc/device-monitor.sh >/dev/null 2>&1 &
-sleep 1
 # Idle device manager
 echo "-------------------------------------------------"
 echo -e "${yellow}Setting up Swayidle and Hyprlock...${nc}"
@@ -376,7 +341,6 @@ if pgrep -x "labwc" > /dev/null; then
     echo -e "${green}labwc Session Detected${nc}"   
     echo -e "${yellow}Refreshing Desktop...${nc}"
     background_services
-    sleep 1
 else
     generate_menu
     echo -e "${green}Setup Complete Enjoy....${nc}"
@@ -390,7 +354,6 @@ generate_menu
 echo "-------------------------------------------------"
 echo -e "${yellow}Launching Wallpaper Selector...${nc}"
 echo "Please select a wallpaper from the menu."
-sleep 1
 # Launches wallpaper selector
 "$wall_script"
 
@@ -398,12 +361,9 @@ sleep 1
 echo "-------------------------------------------------"
 echo -e "${yellow}Customizing Waybar...${nc}"
 waybar_script="$HOME/.config/waybar/scripts/waybar_customize.sh"
-sleep 1
 echo -e "${yellow}Choose waybar position:${nc}"
 "$waybar_script"
-sleep 1
 echo -e "${yellow}Choose waybar style:${nc}"
-sleep 1
 "$waybar_script"
 
 # Exit Prompt
@@ -413,7 +373,6 @@ echo -e "To apply all changes, you should exit the current session."
 read -p "Do you want to exit labwc now? (y/n): " exit_choice
 if [[ "$exit_choice" == "y" || "$exit_choice" == "Y" ]]; then
     echo -e "${red}Exiting labwc...${nc}"
-    sleep 5
     labwc --exit 2>/dev/null 
 else
     echo -e "${green}Installation finished. Please restart your session manually later.${nc}"
