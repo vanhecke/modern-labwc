@@ -60,7 +60,7 @@ dependencies=(
     "thunar"
     "pavucontrol"
     "brightnessctl"
-    "zed"
+    "zeditor"
     "spotify"
     # Fonts & Themes
     "otf-font-awesome"
