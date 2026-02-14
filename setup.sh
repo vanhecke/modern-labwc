@@ -53,6 +53,15 @@ dependencies=(
     "ttf-roboto"
     "papirus-icon-theme"
     "adw-gtk-theme"
+    # Audio stack
+    "pipewire"
+    "pipewire-pulse"
+    "wireplumber"
+    # Login manager
+    "greetd"
+    "greetd-tuigreet"
+    # XDG
+    "xdg-user-dirs"
 )
 
 # --- Dependency Checker Function ---
@@ -180,6 +189,43 @@ sleep 0.5
 # Add to seat group
 sudo usermod -aG seat "$user"
 echo -e "${green}Successfully added $user to 'seat' group.${nc}"
+
+# --- XDG User Dirs ---
+echo -e "${yellow}Creating XDG user directories...${nc}"
+xdg-user-dirs-update
+echo -e "${green}XDG user directories created.${nc}"
+echo "-------------------------------------------------"
+sleep 0.5
+
+# --- Greeter (greetd + tuigreet) Setup ---
+echo -e "${yellow}Setting up login manager (greetd + tuigreet)...${nc}"
+sleep 0.5
+# Install greetd config
+if [ -f "./config/greetd/config.toml" ]; then
+    sudo mkdir -p /etc/greetd
+    sudo cp ./config/greetd/config.toml /etc/greetd/config.toml
+    echo -e "${green}greetd config installed to /etc/greetd/${nc}"
+else
+    echo -e "${red}Warning: greetd config.toml not found in ./config/greetd/${nc}"
+fi
+# Ensure labwc session file exists for display managers
+if [ ! -f "/usr/share/wayland-sessions/labwc.desktop" ]; then
+    echo -e "${yellow}Creating labwc session file...${nc}"
+    sudo mkdir -p /usr/share/wayland-sessions
+    sudo tee /usr/share/wayland-sessions/labwc.desktop > /dev/null << 'EOF'
+[Desktop Entry]
+Name=Labwc
+Comment=Labwc Wayland Compositor
+Exec=labwc
+Type=Application
+EOF
+    echo -e "${green}labwc session file created.${nc}"
+fi
+# Enable greetd service
+sudo systemctl enable greetd
+echo -e "${green}greetd enabled. It will start on next boot.${nc}"
+echo "-------------------------------------------------"
+sleep 0.5
 
 #########################################
 # --- Post-Installation Setup ---########
