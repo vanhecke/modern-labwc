@@ -19,7 +19,7 @@
       //                                         //
       /////////////////////////////////////////////
 
-      "modules-left": ["custom/launcher", "custom/chrome", "custom/terminal", "custom/code", "custom/music", "custom/thunar", "custom/todo"],
+      "modules-left": ["custom/launcher", "custom/firefox", "custom/terminal", "custom/code", "custom/music", "custom/thunar", "custom/steam", "custom/todo"],
       "modules-center": ["wlr/taskbar"],
       "modules-right": ["keyboard-state", "custom/countdown", "memory", "group/group-tools", "pulseaudio", "backlight", "network", "tray", "clock", "custom/power"],
 
@@ -116,7 +116,7 @@
           "interval": 30,
           "format": "<big>󰍛</big>\u00a0\u00a0{percentage}%",
           "tooltip-format": "Memory: {used:0.1f}G/{total:0.1f}G\nPercentage: {percentage}% used\nAvailable: {avail}G\nSwap: {swapUsed:0.1f}G/{swapTotal:0.1f}G",
-          "on-click": "xfce4-taskmanager"
+          "on-click": "foot -e btop"
       },
 
 
@@ -174,14 +174,12 @@
           "on-click-right": "killall rofi 2>/dev/null || bash ~/.config/waybar/scripts/customize.sh 2>/dev/null"
       },
 
-      "custom/chrome":
+      "custom/firefox":
       {
           "format": "",
           "tooltip": true,
           "tooltip-format": "Browser",
-          "on-click": "google-chrome-stable",
-          "on-click-right": "chromium",
-          "on-click-middle": "brave"
+          "on-click": "firefox"
       },
 
       "custom/terminal":
@@ -189,8 +187,7 @@
           "format": "",
           "tooltip": true,
           "tooltip-format": "Terminal",
-          "on-click": "xfce4-terminal",
-          "on-click-right": "foot"
+          "on-click": "foot"
       },
 
       "custom/code":
@@ -198,7 +195,7 @@
           "format": "",
           "tooltip": true,
           "tooltip-format": "Code Editor",
-          "on-click": "/opt/sublime_text/sublime_text"
+          "on-click": "zed"
       },
 
       "custom/music":
@@ -206,8 +203,7 @@
           "format": "",
           "tooltip": true,
           "tooltip-format": "Music",
-          "on-click": "env LD_PRELOAD=/usr/lib/spotify-adblock.so spotify --uri=%U >/dev/null 2>&1 &",
-          "on-click-right": "g4music"
+          "on-click": "spotify"
       },
 
       "custom/thunar":
@@ -216,6 +212,14 @@
           "tooltip": true,
           "tooltip-format": "File Manager",
           "on-click": "thunar"
+      },
+
+      "custom/steam":
+      {
+          "format": "󰓓",
+          "tooltip": true,
+          "tooltip-format": "Steam",
+          "on-click": "steam"
       },
 
 

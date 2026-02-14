@@ -29,7 +29,7 @@ backup_root="$HOME/.config/BACKUP"
 backup_dir="$backup_root/$timestamp"
 
 # --- Dependencies ---
-# Note: Package names here are optimized for Arch Linux
+# Note: Installed via paru (handles both official repos and AUR)
 dependencies=(
     "imagemagick"
     "labwc"
@@ -55,6 +55,13 @@ dependencies=(
     "grim"
     "slurp"
     "playerctl"
+    # Apps (waybar icons)
+    "firefox"
+    "thunar"
+    "pavucontrol"
+    "brightnessctl"
+    "zed"
+    "spotify"
     # Fonts & Themes
     "otf-font-awesome"
     "inter-font"
@@ -65,6 +72,9 @@ dependencies=(
     "pipewire"
     "pipewire-pulse"
     "wireplumber"
+    # Gaming (CachyOS meta)
+    "cachyos-gaming-meta"
+    "cachyos-gaming-applications"
     # Login manager
     "greetd"
     "greetd-tuigreet"
@@ -76,7 +86,7 @@ dependencies=(
 check_dependencies() {    
     echo -e "${blue}[DEPENDENCY CHECK]${nc} Checking installed packages..."
     sleep 0.5
-    install_cmd="sudo pacman -S --noconfirm --needed"
+    install_cmd="paru -S --noconfirm --needed"
     check_cmd="pacman -Qi"
 
     # Check for missing packages
@@ -240,6 +250,10 @@ echo "-------------------------------------------------"
 sleep 0.5
 
 if [ "$UPDATE_MODE" = true ]; then
+    # Regenerate desktop menu based on installed apps
+    echo -e "${yellow}Generating desktop menu...${nc}"
+    python3 "$dest/labwc/menu-generator.py" -o "$dest/labwc/menu.xml" 2>/dev/null
+    echo -e "${green}Desktop menu generated.${nc}"
     echo ""
     echo -e "${green}=========================================${nc}"
     echo -e "${green}  Update complete!${nc}"
@@ -247,6 +261,7 @@ if [ "$UPDATE_MODE" = true ]; then
     echo -e "  Packages:  checked/installed"
     echo -e "  Configs:   copied to ${yellow}$dest${nc}"
     echo -e "  Theme:     copied to ${yellow}$theme_dest${nc}"
+    echo -e "  Menu:      regenerated"
     echo -e "  greetd:    config updated"
     echo -e "  Groups:    ensured (input, seat)"
     echo -e "  XDG dirs:  ensured"
@@ -306,7 +321,8 @@ sleep 1
 generate_menu() {
 echo "-------------------------------------------------"
 echo -e "${yellow}Generating Desktop Menu...${nc}"
-bash "$HOME/.config/labwc/menu-generator.sh"
+python3 "$dest/labwc/menu-generator.py" -o "$dest/labwc/menu.xml" 2>/dev/null
+echo -e "${green}Desktop menu generated.${nc}"
 }
 
 # Background Services
