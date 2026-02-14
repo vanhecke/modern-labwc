@@ -259,11 +259,11 @@ echo -e "${blue}[POST-INSTALLATION SETUP]${nc}"
 echo "-------------------------------------------------"
 echo -e "${yellow}Configure Wallpaper Directory${nc}"
 echo -e "Enter the path to your wallpapers."
-echo -e "If you leave this blank, it will default to: ${blue}/usr/share/backgrounds/${nc}"
+echo -e "If you leave this blank, it will default to: ${blue}/usr/share/wallpapers/${nc}"
 read -p "Path: " user_wall_path
 
 wall_script="$HOME/.config/rofi/wallselect/wallselect.sh"
-default_path="/usr/share/backgrounds/"
+default_path="/usr/share/wallpapers/"
 
 # Validate input
 if [[ -z "$user_wall_path" ]]; then

@@ -5,7 +5,7 @@
 #####################################
 
 # Change path to wallpaper
-wall_dir="/usr/share/backgrounds/images/"
+wall_dir="/usr/share/wallpapers/"
 
 # Directories to copy wallpaper
 rofi_img="$HOME/.config/rofi/images/"
