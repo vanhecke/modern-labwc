@@ -26,11 +26,12 @@ tooltip label {
 /* --- Modules: Base --- */
 #clock,
 #network,
-#custom-chrome,
+#custom-firefox,
 #custom-terminal,
 #custom-code,
 #custom-music,
 #custom-thunar,
+#custom-steam,
 #custom-todo,
 #custom-countdown,
 #backlight,
@@ -52,11 +53,12 @@ tooltip label {
     transition: all 0.3s ease;
 }
 
-#custom-chrome,
+#custom-firefox,
 #custom-terminal,
 #custom-code,
 #custom-music,
 #custom-thunar,
+#custom-steam,
 #custom-clip,
 #custom-snip,
 #idle_inhibitor,
@@ -66,7 +68,7 @@ tooltip label {
 
 #custom-power,
 #custom-todo,
-#custom-chrome{
+#custom-firefox{
     margin-left: 2px;
 }
 
@@ -115,11 +117,12 @@ tooltip label {
 #custom-taskmanager:hover,
 #custom-theme-switcher:hover,
 #idle_inhibitor:hover,
-#custom-chrome:hover,
+#custom-firefox:hover,
 #custom-terminal:hover,
 #custom-code:hover,
 #custom-music:hover,
-#custom-thunar:hover {
+#custom-thunar:hover,
+#custom-steam:hover {
     background: @hover_bg;
     color: @hover_fg;
 }

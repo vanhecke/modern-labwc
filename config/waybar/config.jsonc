@@ -167,7 +167,7 @@
 
       "custom/launcher":
       {
-          "format": "<big>\u00a0</big>",
+          "format": "<big>\u00a0</big>",
           "tooltip": true,
           "tooltip-format": "Menu\nRight click to customize",
           "on-click": "killall rofi 2>/dev/null || bash ~/.config/rofi/launchers/launcher.sh 2>/dev/null",
@@ -176,7 +176,7 @@
 
       "custom/firefox":
       {
-          "format": "",
+          "format": "",
           "tooltip": true,
           "tooltip-format": "Browser",
           "on-click": "firefox"
