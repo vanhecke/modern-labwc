@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# --- Parse flags ---
+UPDATE_MODE=false
+for arg in "$@"; do
+    case "$arg" in
+        --update) UPDATE_MODE=true ;;
+    esac
+done
+
 # --- Colors ---
 red='\033[0;31m'
 green='\033[0;32m'
@@ -115,6 +123,7 @@ check_dependencies() {
 
 check_dependencies
 
+if [ "$UPDATE_MODE" = false ]; then
 # --- Backup Section ---
 echo -e "${yellow}Checking existing configurations...${nc}"
 sleep 0.5
@@ -143,6 +152,7 @@ else
 fi
 echo "-------------------------------------------------"
 sleep 0.5
+fi
 
 # --- Config Copy Section ---
 echo -e "${yellow}Preparing to copy configurations...${nc}"
@@ -158,16 +168,18 @@ echo -e "${green}Configs copied successfully.${nc}"
 echo "-------------------------------------------------"
 sleep 0.5
 
+if [ "$UPDATE_MODE" = false ]; then
 # --- Font Installation Section ---
-mkdir -p "$font_dest"    
+mkdir -p "$font_dest"
 echo -e "Extracting fonts to ${yellow}$font_dest${nc}..."
 tar -xJf "$font_source" -C "$font_dest"
-sleep 0.5    
+sleep 0.5
 echo -e "${blue}Updating font cache (this may take a moment)...${nc}"
 fc-cache -fv > /dev/null 2>&1
 echo -e "${green}Fonts installed and cache updated.${nc}"
 echo "-------------------------------------------------"
 sleep 0.5
+fi
 
 # --- Theme Installation Section ---
 mkdir -p "$theme_dest"    
@@ -226,6 +238,22 @@ sudo systemctl enable greetd
 echo -e "${green}greetd enabled. It will start on next boot.${nc}"
 echo "-------------------------------------------------"
 sleep 0.5
+
+if [ "$UPDATE_MODE" = true ]; then
+    echo ""
+    echo -e "${green}=========================================${nc}"
+    echo -e "${green}  Update complete!${nc}"
+    echo -e "${green}=========================================${nc}"
+    echo -e "  Packages:  checked/installed"
+    echo -e "  Configs:   copied to ${yellow}$dest${nc}"
+    echo -e "  Theme:     copied to ${yellow}$theme_dest${nc}"
+    echo -e "  greetd:    config updated"
+    echo -e "  Groups:    ensured (input, seat)"
+    echo -e "  XDG dirs:  ensured"
+    echo ""
+    echo -e "${blue}Restart your session to apply all changes.${nc}"
+    exit 0
+fi
 
 #########################################
 # --- Post-Installation Setup ---########
