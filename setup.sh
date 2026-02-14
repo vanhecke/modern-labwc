@@ -62,6 +62,10 @@ dependencies=(
     "brightnessctl"
     "zeditor"
     "spotify"
+    # Apps (display & media)
+    "mpv"
+    "wdisplays"
+    "wlr-randr"
     # Fonts & Themes
     "otf-font-awesome"
     "inter-font"

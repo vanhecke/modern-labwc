@@ -33,6 +33,9 @@
         <keybind key="f11">
             <action name="ToggleFullscreen" />
         </keybind>
+        <keybind key="W-space">
+            <action name="Execute" command="rofi -show drun" />
+        </keybind>
         <keybind key="W-s">
             <action name="Execute" command="sh -c '~/.config/rofi/screen-tool/screen-tool.sh'" />
         </keybind>
@@ -134,7 +137,7 @@
         <!-- NON-TOUCH: physical/external mice -->
         <device category="non-touch">
             <pointerSpeed>1.0</pointerSpeed>
-            <accelProfile>adaptive</accelProfile>
+            <accelProfile>flat</accelProfile>
             <naturalScroll>no</naturalScroll>
             <scrollFactor>1.0</scrollFactor>
             <leftHanded>no</leftHanded>

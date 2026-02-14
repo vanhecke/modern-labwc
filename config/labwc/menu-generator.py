@@ -305,16 +305,16 @@ def print_custom_footer(handle, is_static):
 			"icons": ["terminal", "x-terminal-emulator", "org.gnome.Terminal"]
 		},
 		{
-			"label": "Reconfigure", 
-			"action": "Reconfigure", 
-			"cmd": None, 
+			"label": "Reconfigure",
+			"action": "Reconfigure",
+			"cmd": None,
 			"icons": ["system-reboot", "view-refresh", "reload"]
 		},
 		{
-			"label": "Proton VPN", 
-			"action": "Execute", 
-			"cmd": "protonvpn-app", 
-			"icons": ["proton-vpn-logo", "network-vpn", "nm-vpn-standalone-lock"]
+			"label": "Reload Bar",
+			"action": "Execute",
+			"cmd": "sh -c 'killall -q waybar; waybar &'",
+			"icons": ["view-refresh", "reload", "system-reboot"]
 		},
 		{
 			"label": "Background", 
